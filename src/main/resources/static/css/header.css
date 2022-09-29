@@ -1,0 +1,118 @@
+header {
+    width: 100%;
+    height: 60px;
+}
+
+.header-container {
+    position: sticky;
+    z-index: 10;
+
+    width: 100%;
+    height: 60px;
+    background-color: bisque;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 20px;
+
+    /* width: 100%; */
+    height: 60px;
+
+
+}
+
+.header-left-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    width: 60px;
+    cursor: pointer;
+}
+
+.site-logo {
+    width: 100%;
+
+}
+
+.menu-container {
+    margin-left: 10px;
+    padding: 0 10px;
+    height: 100%;
+}
+
+.site-nav-menu {
+    display: flex;
+    align-items: center;
+    height: 60px;
+
+}
+
+.header-right-container {
+    display: flex;
+    align-items: center;
+}
+
+.site-header-button {
+    margin: 0 0 0 10px;
+    border: none;
+    padding: 0;
+    width: auto;
+    height: 11px;
+
+    font-weight: 400;
+
+}
+
+.site-header-button:hover {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.korea-img {
+    height: 150%;
+}
+
+nav {
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    left: 0;
+
+
+    padding-top: 80px;
+
+    width: 351px;
+    height: 100%;
+
+    background-color: aqua;
+    /* opacity: 0; */
+}
+
+.site-nav-mega {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+
+    margin: 0 20px;
+    padding-left: 80px;
+    padding-bottom: 30px;
+}
+
+.site-nav-child-link {
+    margin-bottom: 10px;
+
+    width: 85px;
+}
+
+.nav-invisible {
+    display: none;
+}
