@@ -1,21 +1,22 @@
 server:
-  port: 8080
+  port: 8000
 
 
 spring:
   mvc:
     static-path-pattern: /static/**
 
-    datasource:
-      driver-class-name: org.mariadb.jdbc.Driver
-      url: jdbc:mariadb://web-study.csbruw3zvnas.ap-northeast-2.rds.amazonaws.com:3306/stussy-20220929-HDH
-      username: HDH
-      password: 1q2w3e4r!
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://web-study.csbruw3zvnas.ap-northeast-2.rds.amazonaws.com:3306/stussy-20220929-HDH?allowMultiQueries=true
+                                                                                    #allowMultiQueries: xml에서 insert 2번 가능
+    username: HDH
+    password: 1q2w3e4r!
 
-    security:
-      user:
-        name: HDH
-        password: 1234
+  security:
+    user:
+      name: HDH
+      password: 1234
 
 mybatis:
   mapper-locations:
