@@ -5,7 +5,7 @@ registerGoButton.onclick = () => {
     location.href = "/account/register";
 }
 
-loginButton.onclick = () => {
+oginButton.onclick = () => {
     const loginform = document.querySelector("form");
     loginform.submit();
 }
