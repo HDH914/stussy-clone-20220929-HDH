@@ -3,12 +3,12 @@ package com.stussy.stussyclone20220929HDH.aop;
 
 import com.stussy.stussyclone20220929HDH.aop.annotation.ValidAspect;
 import com.stussy.stussyclone20220929HDH.dto.CMRespDto;
+import com.stussy.stussyclone20220929HDH.exception.CustomValidationException;
 import jdk.jfr.Category;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -26,42 +26,33 @@ import java.util.Map;
 public class ValidationAop {
 
     @Pointcut("@annotation(com.stussy.stussyclone20220929HDH.aop.annotation.ValidAspect)")
-    private void pointCut(){
+    private void pointCut(){}
 
-    }
-
-    @Around("pointCut()")
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable{
+    @Before("pointCut()")
+    public void before(JoinPoint joinPoint) throws Throwable{
         Object[] args = joinPoint.getArgs();
 
         BeanPropertyBindingResult bindingResult = null;
 
-        for( Object arg : args ){
-            if(args.getClass() == BeanPropertyBindingResult.class){
-                bindingResult = (BeanPropertyBindingResult) args;
-                log.info("바인딩리절트 객체입니다.");
+        for(Object arg : args) {
+            if(arg.getClass() == BeanPropertyBindingResult.class){
+                bindingResult = (BeanPropertyBindingResult) arg;
                 break;
-            }else{
-                log.info("바인딩리절트 객체가 아닙니다.");
             }
         }
 
-        if(bindingResult == null){
-            return joinPoint.proceed();
-        }
-
         if(bindingResult.hasErrors()){
-            log.error("유효성 검사 오류 발생");
             Map<String, String> errorMap = new HashMap<String, String>();
 
             bindingResult.getFieldErrors().forEach(error -> {
-                errorMap.put(error.getField(),error.getDefaultMessage());
+                errorMap.put(error.getField(), error.getDefaultMessage());
             });
-//            log.error("error: {}", errorMap);
-
-            return ResponseEntity.badRequest().body(new CMRespDto<>(-1,"유효성 검사 실패", errorMap));
+            throw new CustomValidationException("Validation failed", errorMap);
         }
+    }
 
-        return null;
+    @AfterReturning(value = "pointCut()", returning = "returnObj")
+    public void afterReturn(JoinPoint joinPoint, Object returnObj){
+        log.info("Validation success: {}", returnObj);
     }
 }

@@ -16,8 +16,8 @@ public class LogAop {
     @Pointcut("@annotation(com.stussy.stussyclone20220929HDH.aop.annotation.LogAspect)")
     private void annotationPointCut(){}
 
-    @Pointcut("execution(* com.stussy.stussyclone20220929HDH.controller.api.*.*(..))")
-    private void executionPointCut(){}
+//    @Pointcut("execution(* com.stussy.stussyclone20220929HDH.controller.api.*.*(..))")
+//    private void executionPointCut(){}
 
     @Around("annotationPointCut()")  //@Around("실행할 메소드 명()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
