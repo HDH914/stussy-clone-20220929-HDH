@@ -43,6 +43,4 @@ public class AccountApi {
 
         return ResponseEntity.ok().body(new CMRespDto<>(1, "Successfully registered", registerReqDto));
     }
-
-
 }

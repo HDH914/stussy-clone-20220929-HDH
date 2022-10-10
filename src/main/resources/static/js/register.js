@@ -1,7 +1,21 @@
 const registerButton = document.querySelector(".login-button");
+const registerInputs = document.querySelectorAll(".login-input");
+
+
+for (let i = 0; i < registerInputs.length; i++) {
+    registerInputs[i].onkeyup = () => {
+        console.log(index);
+        if (window.event.keyCode == 13) {  //keyCode == 13: Enter키
+            if (index != 3) {
+                registerInputs[i + 1].focus();
+            } else {
+                registerButton.click();
+            }
+        }
+    }
+}
 
 registerButton.onclick = () => {
-    const registerInputs = document.querySelectorAll(".login-input");
 
     let registerInfo = {
         lastName: registerInputs[0].value,

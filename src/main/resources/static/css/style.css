@@ -12,7 +12,9 @@ html {
     margin: 0;
 }
 
-input {
+input,
+select,
+textarea {
     margin-bottom: 15px;
     border: 1px solid rgb(198, 198, 198);
     padding: 10px;
@@ -20,7 +22,8 @@ input {
     line-height: 5px;
 }
 
-input:focus {
+input:focus,
+select:focus {
     outline: none;
     border: 1px solid black;
 }
@@ -110,4 +113,8 @@ ul {
     margin: 0;
     padding: 0;
     list-style-type: none;
+}
+
+main {
+    margin-top: 60px;
 }
