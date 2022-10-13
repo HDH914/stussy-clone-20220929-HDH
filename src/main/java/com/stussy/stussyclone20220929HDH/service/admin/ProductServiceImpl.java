@@ -16,9 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -36,12 +34,11 @@ public class ProductServiceImpl implements ProductService{
         List<MultipartFile> files = productAdditionReqDto.getFiles();
         List<ProductImgFile> productImgFiles = null;
 
-
         Product product = productAdditionReqDto.toProductEntity();
         resultCount = productRepository.saveProduct(product);
 
         if(files != null) {
-            int productId =
+            int productId = product.getId();
             productImgFiles = getProductImgFiles(files, productId);
             resultCount = productRepository.saveImgFiles(productImgFiles);
         }
@@ -53,7 +50,7 @@ public class ProductServiceImpl implements ProductService{
         return true;
     }
 
-    private List<ProductImgFile> getProductImgFiles(List<MultipartFile> files) throws Exception {
+    private List<ProductImgFile> getProductImgFiles(List<MultipartFile> files, int productId) throws Exception {
         List<ProductImgFile> productImgFiles = new ArrayList<ProductImgFile>();
 
         files.forEach(file -> {
@@ -64,7 +61,7 @@ public class ProductServiceImpl implements ProductService{
             Path uploadPath = Paths.get(filePath + "/product" + temp_name);
 
             File f = new File(filePath + "/product");
-            if(!f.exists()){
+            if(!f.exists()) {
                 f.mkdirs();
             }
 
@@ -75,7 +72,7 @@ public class ProductServiceImpl implements ProductService{
             }
 
             ProductImgFile productImgFile = ProductImgFile.builder()
-                    .product_id(0)
+                    .product_id(productId)
                     .origin_name(originName)
                     .temp_name(temp_name)
                     .build();
@@ -84,5 +81,13 @@ public class ProductServiceImpl implements ProductService{
         });
 
         return productImgFiles;
+    }
+
+    @Override
+    public List<Product> getProductList(int pageNumber, String category, String searchText) throws Exception {
+        Map<String, Object> parmasMap = new HashMap<String, Object>();
+        parmasMap.put("index", (pageNumber - 1) * 10);
+
+        return productRepository.getProductList(parmasMap);
     }
 }
