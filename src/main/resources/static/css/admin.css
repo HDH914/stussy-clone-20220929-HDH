@@ -131,9 +131,13 @@ button {
 
 .page-buttons {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     margin: 15px 0;
     width: 150px;
+}
+
+.page-buttons a {
+    margin: 0 2px;
 }
 
 .page-buttons li {
